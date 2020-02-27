@@ -1,7 +1,18 @@
 body {
   font-family: 'Noto Serif', sans-serif;
+  background-color: #eee;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', serif;
+}
+
+.container {
+  background-color: #fff;
+}
+
+.main-header {
+  height: 100vh;
+  background-image: url('../img/main-header-bg.jpg');
+  background-size: cover;
 }
