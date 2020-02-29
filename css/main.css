@@ -19,10 +19,37 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   background-image: url('../img/main-header-bg.jpg');
   background-size: cover;
+  position: relative;
 }
 .navbar-dark {
   background-color: #333547 !important;
   font-family: 'Oswald', serif;
   text-transform: uppercase;
   font-size: 1.2rem;
+}
+.motd {
+  display: flex;
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 11rem;
+  font-family: 'Oswald', serif;
+  text-transform: uppercase;
+  margin-left: 50px;
+  height: calc(100% - 80px);
+}
+.motd p {
+  margin-bottom: -15px;
+}
+.motd .big {
+  margin-bottom: -30px;
+  margin-top: -30px;
+}
+.motd .small {
+  font-size: 3.8rem;
+}
+.motd .sub {
+  font-size: 4.2rem;
+  font-family: 'Noto Serif', sans-serif;
+  text-transform: none;
 }
