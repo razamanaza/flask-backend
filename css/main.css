@@ -1,18 +1,28 @@
 body {
   font-family: 'Noto Serif', sans-serif;
-  background-color: #eee;
+  background-color: #f8f8fa;
 }
-
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', serif;
 }
-
 .container {
   background-color: #fff;
 }
-
+.content {
+  padding: 50px 40px;
+}
+.header-container {
+  background-color: transparent;
+  padding: 30px 0 20px;
+}
 .main-header {
   height: 100vh;
   background-image: url('../img/main-header-bg.jpg');
   background-size: cover;
+}
+.navbar-dark {
+  background-color: #333547 !important;
+  font-family: 'Oswald', serif;
+  text-transform: uppercase;
+  font-size: 1.2rem;
 }
