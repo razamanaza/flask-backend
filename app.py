@@ -1,6 +1,13 @@
 from flask import Flask
 from flask import render_template
+from mongoengine import *
+
 app = Flask(__name__)
+
+connect('countries')
+
+class Country(Document):
+    name = StringField()
 
 @app.route('/')
 def index():
@@ -8,7 +15,14 @@ def index():
 
 @app.route('/visual')
 def visual():
-  return render_template('visual.html')
+  russia = Country(name = 'Russia')
+  russia.save()
+  nz = Country(name = 'New Zealand')
+  nz.save()
+  countries = []
+  for c in Country.objects:
+    countries.append(c.name)
+  return render_template('visual.html', countries = countries)
 
 @app.route('/inspirations')
 def inspirations():
