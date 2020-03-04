@@ -1,52 +1,7 @@
-<!doctype html>
-<html class="no-js" lang="">
+{% extends 'layouts/default.html' %}
+{% block title %}Inspirations{% endblock %}
 
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Oswald&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <script src="js/vendor/jquery-3.4.1.min.js"></script>
-  <script src="js/vendor/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-
-  <meta name="theme-color" content="#fafafa">
-</head>
-
-<body>
-  <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
-<header>
-  <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-    <a class="navbar-brand" href="/"><img src="img/main-header-icon.png" alt="Data Visualisation Project"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="main-menu">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="visual.html">Visualisation</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="inspirations.html">Inspirations</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-
-
-
+{% block content %}
 <section class="inspirations">
   <div class="container header-container">
     <h1>Inspired by</h1>
@@ -55,7 +10,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="card">
-          <img src="img/inspiration-typography.jpg" class="card-img-top" alt="Inspiration 1">
+          <img src="static/img/inspiration-typography.jpg" class="card-img-top" alt="Inspiration 1">
           <div class="card-body">
             <h5 class="card-title">Web Typography Example</h5>
             <p class="card-text">This web page gives a great example how to combine two web fonts one of them is Sans Serif and another is Sans</p>
@@ -65,7 +20,7 @@
       </div>
       <div class="col-md-4">
         <div class="card">
-          <img src="img/inspiration-main-page.jpg" class="card-img-top" alt="Inspiration 2">
+          <img src="static/img/inspiration-main-page.jpg" class="card-img-top" alt="Inspiration 2">
           <div class="card-body">
             <h5 class="card-title">Main Page Example</h5>
             <p class="card-text">A good example of modern looking main page</p>
@@ -75,7 +30,7 @@
       </div>
       <div class="col-md-4">
         <div class="card">
-          <img src="img/inspiration-dashboard.jpg" class="card-img-top" alt="Inspiration 2">
+          <img src="static/img/inspiration-dashboard.jpg" class="card-img-top" alt="Inspiration 2">
           <div class="card-body">
             <h5 class="card-title">Dashboard Example</h5>
             <p class="card-text">Nice looking dashboard elements for visualisation page</p>
@@ -86,7 +41,4 @@
     </div>
   </div>
 </section>
-
-</body>
-
-</html>
+{%endblock%}

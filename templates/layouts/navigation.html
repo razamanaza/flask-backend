@@ -1,0 +1,22 @@
+{% set navigation = [
+  ('Home', '/'),
+  ('Visualisation', '/visual'),
+  ('Inspirations', '/inspirations')
+]%}
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <a class="navbar-brand" href="/"><img src="static/img/main-header-icon.png" alt="Data Visualisation Project"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="main-menu">
+    <ul class="navbar-nav mr-auto">
+      {% for nav in navigation %}
+      <li class="nav-item{% if request.path == nav[1] %} active {% endif %}">
+        <a class="nav-link" href="{{nav[1]}}">{{nav[0]}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
+

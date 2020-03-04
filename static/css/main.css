@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 30px 0 20px;
 }
 .main-header {
-  height: 100vh;
+  height: calc(100vh - 78px);
   background-image: url('../img/main-header-bg.jpg');
   background-size: cover;
   position: relative;
