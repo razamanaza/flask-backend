@@ -15,10 +15,10 @@ def index():
 
 @app.route('/visual')
 def visual():
-  russia = Country(name = 'Russia')
-  russia.save()
-  nz = Country(name = 'New Zealand')
-  nz.save()
+  #russia = Country(name = 'Russia')
+  #russia.save()
+  #nz = Country(name = 'New Zealand')
+  #nz.save()
   countries = []
   for c in Country.objects:
     countries.append(c.name)
@@ -31,6 +31,23 @@ def inspirations():
 @app.errorhandler(404)
 def not_found(e):
   return render_template('404.html')
+
+@app.route('/countries', methods=['GET'])
+@app.route('/countries/<country_id>', methods=['GET'])
+def getCountries(country_id=None):
+  if country_id is None:
+    countries = Country.objects
+  else:
+    countries = Country.objects.get(id=country_id)
+  return countries.to_json()
+
+@app.route('/countries/<country_id>', methods=['POST'])
+def addCountry(country_id):
+  return
+
+@app.route('/countries/<country_id>', methods=['DELETE'])
+def deleteCountry(country_id):
+  return
 
 if __name__ =='__main__':
   app.run(debug=True,port=8080,host='0.0.0.0')
