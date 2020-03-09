@@ -4,7 +4,7 @@ from mongoengine import *
 
 app = Flask(__name__)
 
-connect('countries')
+connect('countries', host="127.0.0.1", username='student', password='12345')
 
 class Country(Document):
     name = StringField()
