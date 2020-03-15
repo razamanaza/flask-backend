@@ -1,10 +1,12 @@
 from flask import Flask
 from flask import render_template
 from mongoengine import *
+import os
 
 app = Flask(__name__)
 
 connect('countries', host="127.0.0.1", username='student', password='12345')
+app.config.from_object('config')
 
 class Country(Document):
     name = StringField()
@@ -19,10 +21,19 @@ def visual():
   #russia.save()
   #nz = Country(name = 'New Zealand')
   #nz.save()
-  countries = []
+  """ countries = []
   for c in Country.objects:
     countries.append(c.name)
-  return render_template('visual.html', countries = countries)
+  return render_template('visual.html', countries = countries) """
+
+  for file in os.listdir(app.config['FILES_FOLDER']):
+    filename = os.fsdecode(file)
+    path = os.path.join(app.config['FILES_FOLDER'], filename)
+    f = open(path)
+    r = csv.reader(f)
+    d = list(r)
+    for data in d:
+        print(data)
 
 @app.route('/inspirations')
 def inspirations():
@@ -51,3 +62,5 @@ def deleteCountry(country_id):
 
 if __name__ =='__main__':
   app.run(debug=True,port=8080,host='0.0.0.0')
+
+
