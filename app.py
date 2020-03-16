@@ -6,8 +6,12 @@ import csv
 
 app = Flask(__name__)
 
-connect('countries', host="127.0.0.1", username='student', password='12345')
 app.config.from_object('config')
+connect(
+  'countries',
+  host=app.config['DBHOST'],
+  username=app.config['DBUSER'],
+  password=app.config['DBPASS'])
 
 class Country(Document):
     name = StringField()
