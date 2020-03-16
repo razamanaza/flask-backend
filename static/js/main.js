@@ -1,19 +1,10 @@
-$(function(){ 
-
-    function myFunctionCallingFunction(functionArg){
-        functionArg();
-    };
-
-    myFunctionCallingFunction(function(){
-        console.log("hi there");
+$(function(){
+  $('#countries-list').change(function() {
+    id = this.value
+    $.get("/countries/" + id, function(response){
+      $("#output").html(response);
+    }).fail(function(e){
+      console.log('Request error: ' + e.status + ' ' + e.statusText);
     });
-
-    myFunctionCallingFunction(function(){
-        console.log("number 2");
-    });
-
-    
-    (function(something){
-        console.log(something);
-    })("asfdsada");
+  });
 });

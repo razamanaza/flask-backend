@@ -21,8 +21,11 @@ def index():
 
 @app.route('/visual')
 def visual():
-  country = Country.objects.get(name = 'Russia')
-  return render_template('visual.html', countries = country.to_json())
+  country = Country.objects.only('name')
+  countries = []
+  for c in country:
+    countries.append([c.id, c.name])
+  return render_template('visual.html', countries = countries)
 
 @app.route('/inspirations')
 def inspirations():
@@ -35,11 +38,15 @@ def not_found(e):
 @app.route('/countries', methods=['GET'])
 @app.route('/countries/<country_id>', methods=['GET'])
 def getCountries(country_id=None):
-  if country_id is None:
-    countries = Country.objects
+  try:
+    if country_id is None:
+      countries = Country.objects
+    else:
+      countries = Country.objects.get(id=country_id)
+  except:
+    return '', 404
   else:
-    countries = Country.objects.get(id=country_id)
-  return countries.to_json()
+    return countries.to_json(), 200
 
 @app.route('/countries/<country_id>', methods=['POST'])
 def addCountry(country_id):
@@ -65,6 +72,7 @@ def loadData():
         dict = {}
         for key in data:
           if key == 'country':
+            #Check for the country existense in the database
             try:
               Country.objects.get(name = data[key])
             except DoesNotExist:
@@ -82,7 +90,7 @@ def loadData():
         country[dataset] = dict
         country.save()
 
-  return render_template('success.html'), 202
+  return render_template('success.html'), 200
 
 
 if __name__ =='__main__':

@@ -2,7 +2,24 @@
 {% block title %}Visualisation{% endblock %}
 
 {% block content %}
-<div class="container">
-  {{countries}}
-</div>
+<section class="inspirations">
+  <div class="container header-container">
+    <h1>Visualisation</h1>
+  </div>
+  <div class="container content">
+    <form>
+      <div class="form-group">
+        <label for="countries-list">Countries</label>
+        <select class="form-control" id="countries-list">
+          {% for c in countries %}
+            <option value="{{c[0]}}">{{c[1]}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+    <div class="output" id="output">
+
+    </div>
+  </div>
+</section>
 {%endblock%}
