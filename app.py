@@ -36,6 +36,10 @@ def visual():
 def inspirations():
   return render_template('inspirations.html')
 
+@app.route('/documentation')
+def documentation():
+  return render_template('documentation.html')
+
 ##### API ####
 
 @app.route('/countries', methods=['GET'])
