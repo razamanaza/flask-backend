@@ -3,6 +3,7 @@ from flask import render_template
 from mongoengine import *
 import os
 import csv
+import re
 
 app = Flask(__name__)
 
@@ -16,7 +17,6 @@ connect(
 class Country(Document):
     name = StringField()
     data = DictField()
-
 
 ### Routes ###
 
@@ -49,11 +49,15 @@ def getCountries(country_id=None):
     if country_id is None:
       countries = Country.objects
     else:
+      #Check country_id format
+      pattern = re.compile("^(\d|\w){24}$")
+      isValid = pattern.match(country_id)
+      if isValid is None:
+        return '', 400
       countries = Country.objects.get(id=country_id)
+    return countries.to_json(), 200
   except:
     return '', 404
-  else:
-    return countries.to_json(), 200
 
 @app.route('/countries', methods=['POST'])
 def addCountry(country_id):
@@ -84,7 +88,7 @@ def loadData():
               Country.objects.get(name = data[key])
               isCountryExists = True
             except DoesNotExist:
-              isCountryExists = False              
+              isCountryExists = False
 
             if isCountryExists:
               country = Country.objects.get(name = data[key])
