@@ -7,7 +7,7 @@
     <h1>Documentation</h1>
   </div>
   <div class="container content">
-  
+
     <section id="api-reference" class="doc-section">
       <h2>API Reference</h2>
       <p>API provides information about 3 most importanct economical sectors for countries around the world:</p>
@@ -22,7 +22,7 @@
           Base URL
         </div>
         <div class="card-body">
-          <a href="http://10.25.100.1">http://10.25.100.1</a>
+          <a href="http://10.25.100.1:8080">http://10.25.100.1:8080</a>
         </div>
       </div>
     </section>
@@ -34,7 +34,7 @@
           Request
         </div>
         <div class="card-body">
-          <a href="http://10.25.100.1/countries">http://10.25.100.1/countries</a>
+          <a href="http://10.25.100.1:8080/countries">http://10.25.100.1:8080/countries</a>
           <dl>
             <dt>Request type:</dt>
             <dd>GET</dd>
@@ -48,24 +48,50 @@
             Response
           </div>
           <div class="card-body">
-
+<pre>
+[
+  {
+    "_id": {
+      "$oid": "5e755a5d70c52e15b23f44be"
+    },
+    "name": "Afghanistan",
+    "data": {
+      "service": {
+        "1970": "21.8",
+        ...
+      }
+      "industry": {
+        "1970": "11",
+        ...
+      }
+      "agriculture": {
+        "1970": "67.2",
+        ...
+      }
+    }
+  },
+  ...
+]
+</pre>
           </div>
         </div>
     </section>
 
-    <section id="get-all" class="doc-section">
+    <section id="get-country" class="doc-section">
         <h2>Get information about specific country</h2>
         <div class="card">
           <div class="card-header">
             Request
           </div>
           <div class="card-body">
-            <a href="http://10.25.100.1/countries">http://10.25.100.1/countries</a>
+            <a href="http://10.25.100.1:8080/countries/">http://10.25.100.1:8080/countries/country_id</a>
             <dl>
               <dt>Request type:</dt>
               <dd>GET</dd>
               <dt>Description</dt>
-              <dd>Returns info about every country in database</dd>
+              <dd>Returns info about the country with provided id</dd>
+              <dt>country_id format</dt>
+              <dd>A 24 letters string of digits and letters</dd>
             </dl>
           </div>
         </div>
@@ -74,11 +100,63 @@
               Response
             </div>
             <div class="card-body">
-  
+<pre>
+{
+  "_id": {
+    "$oid": "5e755a5d70c52e15b23f44bf"
+  },
+  "name": "Albania",
+  "data": {
+    "service": {
+      "1970": "21.8",
+      ...
+    }
+    "industry": {
+      "1970": "11",
+      ...
+    }
+    "agriculture": {
+      "1970": "67.2",
+      ...
+    }
+  }
+}
+</pre>
             </div>
           </div>
       </section>
-  
+
+      <section id="errors" class="doc-section">
+        <h2>Errors</h2>
+        <div class="card">
+          <div class="card-header">
+            Possible errors
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th scope="row">200 - OK</th>
+                  <td>Everything worked as expected.</td>
+                </tr>
+                <tr>
+                  <th scope="row">400 - Bad Request</th>
+                  <td>The request was unacceptable, often due to missing a required parameter or mailformed parameter.</td>
+                </tr>
+                <tr>
+                  <th scope="row">404 - Not Found</th>
+                  <td>The requested resource doesn't exist.</td>
+                </tr>
+                <tr>
+                  <th scope="row">500, 502, 503, 504 - Server Errors</th>
+                  <td>Something went wrong on the server's end. This is not your fault :)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
   </div>
 </section>
 {%endblock%}
