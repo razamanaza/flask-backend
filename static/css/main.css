@@ -64,3 +64,26 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
   border-bottom: 1px solid #aaa;
 }
+svg {
+  width: 100%;
+  height: 100%;
+  color: #626ed4;
+}
+svg .bar {
+  fill: #cbcff1;
+}
+.bar-bright {
+  fill: #626ed4 !important;
+}
+.bar-label {
+  color: white;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+}
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem #cbcff1;
+}
+#output {
+  width: 100%;
+}

@@ -9,7 +9,7 @@
   <div class="container content">
     <form>
       <div class="form-group">
-        <label for="countries-list">Countries</label>
+        <label for="countries-list">Country</label>
         <select class="form-control" id="countries-list">
           {% for c in countries %}
             <option value="{{c[0]}}">{{c[1]}}</option>
@@ -18,7 +18,7 @@
       </div>
     </form>
     <div class="output" id="output">
-
+      <svg></svg>
     </div>
   </div>
 </section>
