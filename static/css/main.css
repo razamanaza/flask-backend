@@ -81,6 +81,11 @@ svg .bar {
   display: block;
   text-align: center;
 }
+#pie-card {
+  color: white;
+  fill: #626ed4;
+  border-radius: 5px;
+}
 .form-control:focus {
   box-shadow: 0 0 0 0.2rem #cbcff1;
 }
