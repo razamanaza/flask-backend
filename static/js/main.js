@@ -132,11 +132,10 @@ $(function(){
   //x and y - the coordinates of the current bar right border as a countdown point
   //data - data for the pie chart
   function drawPie(x, y, data) {
-    console.log
     const svg = d3.select('svg');
-    const radius = 150;
+    const radius = 130;
     const maxX = $('#output').width();
-    let pieX = ((maxX - x) / 2 + x) > maxX ? maxX : ((maxX - x) / 2 + x);
+    let pieX = ((maxX - x) / 2 + x) + radius > maxX ? maxX - radius : ((maxX - x) / 2 + x);
     let pieY = y;
     if((pieY - radius) < 0) {pieY = radius}
     if((pieY + radius) > $('svg').height()){pieY = $('svg').height() - radius}
@@ -148,11 +147,11 @@ $(function(){
 
     let arc = d3.arc()
       .outerRadius(radius)
-      .innerRadius(60);
+      .innerRadius(80);
 
     let labelArc = d3.arc()
-      .outerRadius(radius - 40)
-      .innerRadius(radius - 60);
+      .outerRadius(radius - 30)
+      .innerRadius(radius - 30);
 
     let pie = d3.pie()
       .sort(null)
@@ -178,6 +177,76 @@ $(function(){
       .attr('transform', function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr('dy', '12px')
       .text(function(d) { return d.data.value; });
+
+    //Draw labels for each sector
+    let pielabels = pieCard
+      .append('g')
+      .attr('clas', 'pielabels');
+
+    let agriculture = pielabels
+      .append('g')
+      .attr('transform', 'translate(-50, -40)')
+
+    agriculture
+      .append('rect')
+      .attr('fill', '#66c2a5')
+      .attr('width', '10')
+      .attr('height', '10')
+
+    agriculture
+      .append('text')
+      .attr('dy', '11px')
+      .attr('transform', 'translate(15, 0)')
+      .text('Agriculture')
+
+    let industry = pielabels
+      .append('g')
+      .attr('transform', 'translate(-50, -20)')
+
+    industry
+      .append('rect')
+      .attr('fill', '#fc8d62')
+      .attr('width', '10')
+      .attr('height', '10')
+
+    industry
+      .append('text')
+      .attr('dy', '11px')
+      .attr('transform', 'translate(15, 0)')
+      .text('Industry')
+
+    let service = pielabels
+      .append('g')
+      .attr('transform', 'translate(-50, 0)')
+
+    service
+      .append('rect')
+      .attr('fill', '#ffd92f')
+      .attr('width', '10')
+      .attr('height', '10')
+
+    service
+      .append('text')
+      .attr('dy', '11px')
+      .attr('transform', 'translate(15, 0)')
+      .text('Service')
+
+    let unknown = pielabels
+      .append('g')
+      .attr('transform', 'translate(-50, 20)')
+
+    unknown
+      .append('rect')
+      .attr('fill', '#8da0cb')
+      .attr('width', '10')
+      .attr('height', '10')
+
+    unknown
+      .append('text')
+      .attr('dy', '11px')
+      .attr('transform', 'translate(15, 0)')
+      .text('Unknown')
+
 
     function tweenDonut(b) {
       b.innerRadius = 0;
