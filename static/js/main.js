@@ -1,8 +1,8 @@
 $(function(){
   $('#countries-list').change(function() {
     id = this.value
-    $.get("/countries/" + id, function(response){
-      $("#output").html('<svg></svg>');
+    $.get('/countries/' + id, function(response){
+      $('#output').html('<svg></svg>');
       drawBar(response);
     }).fail(function(e){
       console.log('Request error: ' + e.status + ' ' + e.statusText);
@@ -30,7 +30,7 @@ $(function(){
       .padding(0.3);
 
     //Sets the height of the main area
-    $("#output").css('height', height + 2 * margin);
+    $('#output').css('height', height + 2 * margin);
 
     //Draws X and Y axis
     chart
@@ -135,12 +135,16 @@ $(function(){
     console.log
     const svg = d3.select('svg');
     const radius = 150;
-    const maxX = $("#output").width();
+    const maxX = $('#output').width();
+    let pieX = ((maxX - x) / 2 + x) > maxX ? maxX : ((maxX - x) / 2 + x);
+    let pieY = y;
+    if((pieY - radius) < 0) {pieY = radius}
+    if((pieY + radius) > $('svg').height()){pieY = $('svg').height() - radius}
     let pieCard = svg.append('g')
       .attr('class', 'pie-card')
-      .attr("transform", "translate(" + ((maxX - x) / 2 + x) + "," + y + ")");
+      .attr("transform", "translate(" + pieX + "," + pieY + ")");
 
-    const color = d3.scaleOrdinal(["#66c2a5", "#fc8d62", "#ffd92f", "#8da0cb"]);
+    const color = d3.scaleOrdinal(['#66c2a5', '#fc8d62', '#ffd92f', '#8da0cb']);
 
     let arc = d3.arc()
       .outerRadius(radius)
@@ -148,7 +152,7 @@ $(function(){
 
     let labelArc = d3.arc()
       .outerRadius(radius - 40)
-      .innerRadius(radius - 40);
+      .innerRadius(radius - 60);
 
     let pie = d3.pie()
       .sort(null)
@@ -156,23 +160,23 @@ $(function(){
 
     let g = pieCard.selectAll()
       .data(pie(data))
-      .enter().append("g")
-      .attr("class", "arc");
+      .enter().append('g')
+      .attr('class', 'arc');
 
-    g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.sector); })
+    g.append('path')
+      .attr('d', arc)
+      .style('fill', function(d) { return color(d.data.sector); })
       .transition()
       .ease(d3.easeLinear)
       .duration(500)
-      .attrTween("d", tweenDonut);
+      .attrTween('d', tweenDonut);
 
-    g.append("text")
+    g.append('text')
       .transition()
       .ease(d3.easeLinear)
       .duration(500)
-      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", "12px")
+      .attr('transform', function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+      .attr('dy', '12px')
       .text(function(d) { return d.data.value; });
 
     function tweenDonut(b) {
@@ -199,6 +203,10 @@ $(function(){
     //Replace undefined data with 0 and text values with numbers
     Object.keys(sectors).forEach((e) => {
       gdp.forEach((g) => {
+        //If we don't have data for current countre make an empty object to fill it with zeroes later
+        if(!data[e]){
+          data[e] = {};
+        }
         if(data[e][g.date]) {
           sectors[e][g.date] = Math.round(Number(data[e][g.date]));
         } else {
