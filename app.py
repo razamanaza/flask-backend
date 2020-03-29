@@ -29,7 +29,8 @@ def visual():
   country = Country.objects.only('name')
   countries = []
   for c in country:
-    countries.append([c.id, c.name])
+    countries.append([c.name, c.id])
+  countries.sort()
   return render_template('visual.html', countries = countries)
 
 @app.route('/inspirations')
@@ -74,6 +75,7 @@ def loadData():
     c.delete()
   for file in os.listdir(app.config['FILES_FOLDER']):
     filename = os.fsdecode(file)
+    pring(filename)
     path = os.path.join(app.config['FILES_FOLDER'], filename)
     f = open(path)
     r = csv.DictReader(f)
@@ -107,6 +109,7 @@ def loadData():
 @app.errorhandler(404)
 def not_found(e):
   return render_template('404.html')
+
 
 if __name__ =='__main__':
   app.run(debug=True,port=8080,host='0.0.0.0')
