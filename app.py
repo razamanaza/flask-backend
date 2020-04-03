@@ -4,6 +4,7 @@ from mongoengine import *
 import os
 import csv
 import re
+from werkzeug.exceptions import InternalServerError
 
 app = Flask(__name__)
 
@@ -109,6 +110,11 @@ def loadData():
 @app.errorhandler(404)
 def not_found(e):
   return render_template('404.html')
+
+@app.errorhandler(InternalServerError)
+def handle_500(e):
+  original = getattr(e, "original_exception", None)
+  return render_template("5xx.html", e=original), 500
 
 
 if __name__ =='__main__':
