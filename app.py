@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import json
 from mongoengine import *
 import os
 import csv
@@ -55,11 +56,11 @@ def getCountries(country_id=None):
       pattern = re.compile("^(\d|\w){24}$")
       isValid = pattern.match(country_id)
       if isValid is None:
-        return '', 400
+        return json.dumps({ 'code': '400', 'description': 'Wrong country id' }), 400
       countries = Country.objects.get(id=country_id)
     return countries.to_json(), 200
   except:
-    return '', 404
+    return json.dumps({ 'code': '404', 'description': 'No country with such id' }), 404
 
 @app.route('/countries', methods=['POST'])
 def addCountry(country_id):
