@@ -77,7 +77,6 @@ def loadData():
     c.delete()
   for file in os.listdir(app.config['FILES_FOLDER']):
     filename = os.fsdecode(file)
-    pring(filename)
     path = os.path.join(app.config['FILES_FOLDER'], filename)
     f = open(path)
     r = csv.DictReader(f)
