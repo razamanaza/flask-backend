@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import json
+from flask_cors import CORS
 from mongoengine import *
 import os
 import csv
@@ -8,6 +9,7 @@ import re
 from werkzeug.exceptions import InternalServerError
 
 app = Flask(__name__)
+CORS(app)
 
 app.config.from_object('config')
 connect(
