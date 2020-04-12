@@ -20,6 +20,13 @@ class Country(Document):
     name = StringField()
     data = DictField()
 
+def getCountriesList():
+  countries = Country.objects.only('name')
+  result = {}
+  for c in countries:
+    result[c.name] = str(c.id)
+  return result
+
 ### Routes ###
 
 @app.route('/')
@@ -28,11 +35,7 @@ def index():
 
 @app.route('/visual')
 def visual():
-  country = Country.objects.only('name')
-  countries = []
-  for c in country:
-    countries.append([c.name, c.id])
-  countries.sort()
+  countries = sorted(getCountriesList().items())
   return render_template('visual.html', countries = countries)
 
 @app.route('/inspirations')
@@ -50,7 +53,8 @@ def documentation():
 def getCountries(country_id=None):
   try:
     if country_id is None:
-      countries = Country.objects
+      countries = getCountriesList()
+      return json.dumps(countries), 200
     else:
       #Check country_id format
       pattern = re.compile("^(\d|\w){24}$")
@@ -58,9 +62,9 @@ def getCountries(country_id=None):
       if isValid is None:
         return json.dumps({ 'code': '400', 'description': 'Wrong country id' }), 400
       countries = Country.objects.get(id=country_id)
-    return countries.to_json(), 200
-  except:
-    return json.dumps({ 'code': '404', 'description': 'No country with such id' }), 404
+      return countries.to_json(), 200
+  except Exception as e:
+    return json.dumps({ 'code': '404', 'description': 'No country with such id', 'exception': str(e) }), 404
 
 @app.route('/countries', methods=['POST'])
 def addCountry(country_id):
