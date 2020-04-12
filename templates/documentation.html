@@ -28,7 +28,7 @@
     </section>
 
     <section id="get-all" class="doc-section">
-      <h2>Get all information</h2>
+      <h2>Get countries list</h2>
       <div class="card">
         <div class="card-header">
           Request
@@ -39,7 +39,7 @@
             <dt>Request type:</dt>
             <dd>GET</dd>
             <dt>Description</dt>
-            <dd>Returns info about every country in database</dd>
+            <dd>Returns list of countries (name and id)</dd>
           </dl>
         </div>
       </div>
@@ -49,29 +49,10 @@
           </div>
           <div class="card-body">
 <pre>
-[
-  {
-    "_id": {
-      "$oid": "5e755a5d70c52e15b23f44be"
-    },
-    "name": "Afghanistan",
-    "data": {
-      "service": {
-        "1970": "21.8",
-        ...
-      }
-      "industry": {
-        "1970": "11",
-        ...
-      }
-      "agriculture": {
-        "1970": "67.2",
-        ...
-      }
-    }
-  },
+{
+  "Afghanistan": "5e8ac0e9cbbeb8e072d61e9a",
   ...
-]
+}
 </pre>
           </div>
         </div>
