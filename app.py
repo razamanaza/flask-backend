@@ -91,6 +91,7 @@ def loadData():
     for data in d:
         dict = {}
         for key in data:
+          print(dataset)
           if key == 'country':
             #Check for the country existense in the database
             try:
@@ -105,6 +106,12 @@ def loadData():
               country = Country(name = data[key], data = {'industry': {}, 'agriculture': {}, 'service': {}, 'gdp': {}})
               country.save()
               country = Country.objects.get(name = data[key])
+
+          elif dataset == 'gdp':
+            if data[key] == '':
+              dict[key] = data[key]
+            else:
+              dict[key] = str(float(data[key]) / 1000000000)
 
           else:
             dict[key] = data[key]

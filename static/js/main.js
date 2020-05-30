@@ -263,16 +263,16 @@ $(function(){
       'industry': {},
       'service': {}
     };
-    //Translate gdp from usd to billions of usd
+    //Fill gdp and converting strings to numbers
     for(e in data.gdp){
       if(data.gdp[e] !== ''){
-        gdp.push({'date': e, 'gdp': Number(data.gdp[e] / 1000000000)});
+        gdp.push({'date': e, 'gdp': Number(data.gdp[e])});
       }
     }
     //Replace undefined data with 0 and text values with numbers
     Object.keys(sectors).forEach((e) => {
       gdp.forEach((g) => {
-        //If we don't have data for current countre make an empty object to fill it with zeroes later
+        //If we don't have data for current countrie make an empty object to fill it with zeroes later
         if(!data[e]){
           data[e] = {};
         }
