@@ -102,7 +102,9 @@ def loadData():
             if isCountryExists:
               country = Country.objects.get(name = data[key])
             else:
-              country = Country(name = data[key])
+              country = Country(name = data[key], data = {'industry': {}, 'agriculture': {}, 'service': {}, 'gdp': {}})
+              country.save()
+              country = Country.objects.get(name = data[key])
 
           else:
             dict[key] = data[key]
