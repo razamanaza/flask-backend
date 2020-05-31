@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import json
 from flask_cors import CORS
+from flask import request
 from mongoengine import *
 import os
 import csv
@@ -68,9 +69,14 @@ def getCountries(country_id=None):
   except Exception as e:
     return json.dumps({ 'code': '404', 'description': 'No country with such id', 'exception': str(e) }), 404
 
-@app.route('/countries', methods=['POST'])
-def addCountry(country_id):
-  return
+@app.route('/countries/<country_id>', methods=['PUT'])
+def updateCountry(country_id):
+  data = request.get_json()
+  countryData = data['data']
+  country = Country.objects.get(id=country_id)
+  country.data = countryData
+  country.save()
+  return json.dumps({ 'code': '200', 'description': 'Successfully updated'}), 200
 
 @app.route('/countries/<country_id>', methods=['DELETE'])
 def deleteCountry(country_id):
