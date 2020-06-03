@@ -20,8 +20,8 @@ connect(
   password=app.config['DBPASS'])
 
 class Country(Document):
-    name = StringField()
-    data = DictField()
+  name = StringField()
+  data = DictField()
 
 def getCountriesList():
   countries = Country.objects.only('name')
@@ -29,6 +29,22 @@ def getCountriesList():
   for c in countries:
     result[c.name] = str(c.id)
   return result
+
+# Checks country_id format
+def validCountryId(country_id):
+  pattern = re.compile("^(\d|\w){24}$")
+  isValid = pattern.match(country_id)
+  if isValid is None:
+    return False
+  return True
+
+# Check year format
+def validYear(year):
+  pattern = re.compile("^(\d){4}$")
+  isValid = pattern.match(year)
+  if isValid is None:
+    return False
+  return True
 
 ### Routes ###
 
@@ -59,11 +75,8 @@ def getCountries(country_id=None):
       countries = getCountriesList()
       return json.dumps(countries), 200
     else:
-      #Check country_id format
-      pattern = re.compile("^(\d|\w){24}$")
-      isValid = pattern.match(country_id)
-      if isValid is None:
-        return json.dumps({ 'code': '400', 'description': 'Wrong country id' }), 400
+      if not validCountryId(country_id):
+        return json.dumps({ 'code': '400', 'description': 'Wrong data format' }), 400
       countries = Country.objects.get(id=country_id)
       return countries.to_json(), 200
   except Exception as e:
@@ -71,16 +84,38 @@ def getCountries(country_id=None):
 
 @app.route('/countries/<country_id>', methods=['PUT'])
 def updateCountry(country_id):
-  data = request.get_json()
-  countryData = data['data']
-  country = Country.objects.get(id=country_id)
-  country.data = countryData
-  country.save()
-  return json.dumps({ 'code': '200', 'description': 'Successfully updated'}), 200
+  try:
+    data = request.get_json()
+    year = data.pop('year')
+    if not validCountryId(country_id) or not validYear(year):
+      return json.dumps({ 'code': '400', 'description': 'Wrong data format' }), 400
+    country = Country.objects.get(id=country_id)
+    # Check input data
+    pattern = re.compile("^(\d|\.)*$")
+    for key in data:
+      isValid = pattern.match(data[key])
+      if isValid is None:
+        return json.dumps({ 'code': '400', 'description': 'Wrong data format' }), 400
+      country.data[key][year] = data[key]
+    country.save()
+    return json.dumps({ 'code': '200', 'description': 'Successfully updated'}), 200
+  except Exception as e:
+    return json.dumps({ 'code': '400', 'description': 'Wrong data format', 'exception': str(e) }), 400
 
 @app.route('/countries/<country_id>', methods=['DELETE'])
 def deleteCountry(country_id):
-  return
+  try:
+    year = request.get_json()
+    if not validCountryId(country_id) or not validYear(year):
+      return json.dumps({ 'code': '400', 'description': 'Wrong data format' }), 400
+    country = Country.objects.get(id=country_id)
+    for key  in country.data:
+      if year in country.data[key]:
+        country.data[key].pop(year)
+    country.save()
+    return json.dumps({ 'code': '200', 'description': 'Successfully deleted'}), 200
+  except Exception as e:
+    return json.dumps({ 'code': '400', 'description': 'Wrong data format', 'exception': str(e) }), 400
 
 @app.route('/loadData')
 def loadData():
