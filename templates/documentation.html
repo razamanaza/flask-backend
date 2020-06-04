@@ -107,6 +107,82 @@
           </div>
       </section>
 
+      <section id="put-country" class="doc-section">
+        <h2>Update information about specific year for a given country</h2>
+        <div class="card">
+          <div class="card-header">
+            Request
+          </div>
+          <div class="card-body">
+            <p>/countries/country_id</p>
+            <dl>
+              <dt>Request type:</dt>
+              <dd>PUT</dd>
+              <dt>Description</dt>
+              <dd>Updates info about country specified by country_id</dd>
+              <dt>country_id format</dt>
+              <dd>A 24 letters string of digits and letters</dd>
+              <dt>Request data format</dt>
+              <dd>
+<pre>
+{
+  gdp: '34.5',
+  industry: '10',
+  agriculture: '24.5',
+  service: '54',
+  year: '1987'
+}
+  </pre>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+              Response
+            </div>
+            <div class="card-body">
+              <p>HTTP Status Code</p>
+            </div>
+          </div>
+      </section>
+
+      <section id="delete-country" class="doc-section">
+        <h2>Delete information about specific year for a given country</h2>
+        <div class="card">
+          <div class="card-header">
+            Request
+          </div>
+          <div class="card-body">
+            <p>/countries/country_id</p>
+            <dl>
+              <dt>Request type:</dt>
+              <dd>DELETE</dd>
+              <dt>Description</dt>
+              <dd>Deletes info about given year for country specified by country_id</dd>
+              <dt>country_id format</dt>
+              <dd>A 24 letters string of digits and letters</dd>
+              <dt>Request data format</dt>
+              <dd>
+<pre>
+{
+  year: '1987'
+}
+  </pre>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+              Response
+            </div>
+            <div class="card-body">
+              <p>HTTP Status Code</p>
+            </div>
+          </div>
+      </section>
+
       <section id="errors" class="doc-section">
         <h2>Errors</h2>
         <div class="card">
