@@ -1,3 +1,1 @@
-The first assignment for Web Enterprise Development course in Otago Polytechnic.
-
-The base template is using an HTML5 Boilerplate and Bootstrap.
+Backend API server based on Flask plus sample frontend part using D3.js
